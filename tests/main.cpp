@@ -1,4 +1,6 @@
 #include "graph.h"
+#include "graphanalysis.h"
+
 #include <string>
 #include <iostream>
 #include <cstdlib>
@@ -10,23 +12,6 @@ class NodeData : public Node
 {
 public:
     string name;
-};
-
-class GraphClient : public IGraphClient
-{
-    virtual void DFVisit(Node *pFromNode, Node *pToNode)
-    {
-        (void)pFromNode;
-        NodeData *nodeData = (NodeData *)pToNode;
-        if(nodeData != NULL)
-        {
-            cout << "\n" << nodeData->name;
-        }
-    }
-
-    virtual void BFVisit(Node *pFromNode, Node *pToNode)
-    {
-    }
 };
 
 int main()
@@ -65,9 +50,16 @@ int main()
         root->m_Neighbours.push_back(neighbour);
     }
 
-    GraphClient gc;
-    graph.SetClient(&gc);
-    graph.BFIterate(graph.GetNode(0));
+    GraphAnalyzer *pGA = new GraphAnalyzer(&graph);
+
+    if(pGA->IsGraphCyclic() == true)
+    {
+        cout << "\nGraph is cyclic";
+    }
+    else
+    {
+        cout << "\nGraph is not cyclic";
+    }
 
     cout << "\n";
 

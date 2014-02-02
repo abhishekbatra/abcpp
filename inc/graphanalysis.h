@@ -1,19 +1,29 @@
+#ifndef _GRAPHANALYSIS_H_
+#define _GRAPHANALYSIS_H_
+
 #include "graph.h"
 
-class GraphAnalyzer : public abcpp::IGraphClient
+namespace abcpp
 {
-    abcpp::Graph *m_pGraph;
-    abcpp::Ternary m_tIsCyclic;
+
+class GraphAnalyzer : public IGraphClient
+{
+    Graph *m_pGraph;
+    Ternary m_tIsCyclic;
 
 public:
-    GraphAnalyzer(abcpp::Graph *pGraph);
+    GraphAnalyzer(Graph *pGraph);
 
-    virtual void DFVisit(abcpp::Node *pFromNode, abcpp::Node *pToNode);
-    virtual void BFVisit(abcpp::Node *pFromNode, abcpp::Node *pToNode);
+    virtual void DFVisit(Node *pFromNode, Node *pToNode);
+    virtual void BFVisit(Node *pFromNode, Node *pToNode);
 
     bool IsGraphCyclic(void);
-    bool IsGraphCyclic(abcpp::Node *pNode);
+    bool IsGraphCyclic(Node *pNode);
 
 protected:
-    bool t_IsBackEdge(abcpp::Node *pFromNode, abcpp::Node *pToNode);
+    bool t_IsBackEdge(Node *pFromNode, Node *pToNode);
 };
+
+}
+
+#endif /*_GRAPHANALYSIS_H_*/

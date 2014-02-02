@@ -1,3 +1,6 @@
+#ifndef _GRAPH_H_
+#define _GRAPH_H_
+
 #include <list>
 #include <vector>
 
@@ -62,4 +65,7 @@ public:
     void DFIterate(Node *pNode);
     void BFIterate(Node *pNode);
 };
+
 }
+
+#endif /*_GRAPH_H_*/
