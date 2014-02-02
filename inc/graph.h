@@ -1,6 +1,16 @@
 #include <list>
 #include <vector>
 
+namespace abcpp
+{
+
+enum Ternary
+{
+    Invalid = -1,
+    False,
+    True
+};
+
 class Node;
 
 typedef std::list<Node *> NodeList;
@@ -23,7 +33,8 @@ class IGraphClient
 {
 public:
     /* To be called before the node is set to visited */
-    virtual void Visit(Node *pFromNode, Node *pToNode) = 0;
+    virtual void DFVisit(Node *pFromNode, Node *pToNode) = 0;
+    virtual void BFVisit(Node *pFromNode, Node *pToNode) = 0;
 };
 
 class Graph
@@ -32,10 +43,15 @@ class Graph
     NodeVector m_Nodes;
     int m_nTime;
 
-    void m_Visit(Node *pFromNode, Node *pToNode);
-    void m_Visit(Node *pFromNode, Node *pToNode, int nTime);
+    void m_DFVisit(Node *pFromNode, Node *pToNode);
+    void m_DFVisit(Node *pFromNode, Node *pToNode, int nTime);
+
+    void m_BFVisit(Node *pFromNode, Node *pToNode);
+    void m_BFVisit(Node *pFromNode, Node *pToNode, int nTime);
+
     void m_ResetNodes(void);
     void m_PerformDFIterate(Node *pFromNode, Node *pToNode);
+
 public:
     Graph(void);
 
@@ -46,3 +62,4 @@ public:
     void DFIterate(Node *pNode);
     void BFIterate(Node *pNode);
 };
+}

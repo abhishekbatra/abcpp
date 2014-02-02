@@ -4,6 +4,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace abcpp;
 
 typedef std::queue<Node *> NodeQueue;
 
@@ -30,21 +31,40 @@ Graph::Graph(void)
     m_nTime = 0;
 }
 
-void Graph::m_Visit(Node *pFromNode, Node *pToNode)
+void Graph::m_DFVisit(Node *pFromNode, Node *pToNode)
 {
     if(m_pGraphClient != NULL)
     {
-        m_pGraphClient->Visit(pFromNode, pToNode);
+        m_pGraphClient->DFVisit(pFromNode, pToNode);
     }
     pToNode->m_bVisited = true;
 }
 
-void Graph::m_Visit(Node *pFromNode, Node *pToNode, int nTime)
+void Graph::m_DFVisit(Node *pFromNode, Node *pToNode, int nTime)
 {
     pToNode->m_EntryTime = nTime;
     if(m_pGraphClient != NULL)
     {
-        m_pGraphClient->Visit(pFromNode, pToNode);
+        m_pGraphClient->DFVisit(pFromNode, pToNode);
+    }
+    pToNode->m_bVisited = true;
+}
+
+void Graph::m_BFVisit(Node *pFromNode, Node *pToNode)
+{
+    if(m_pGraphClient != NULL)
+    {
+        m_pGraphClient->BFVisit(pFromNode, pToNode);
+    }
+    pToNode->m_bVisited = true;
+}
+
+void Graph::m_BFVisit(Node *pFromNode, Node *pToNode, int nTime)
+{
+    pToNode->m_EntryTime = nTime;
+    if(m_pGraphClient != NULL)
+    {
+        m_pGraphClient->BFVisit(pFromNode, pToNode);
     }
     pToNode->m_bVisited = true;
 }
@@ -91,7 +111,7 @@ void Graph::DFIterate(Node *pNode)
 
 void Graph::m_PerformDFIterate(Node *pFromNode, Node *pToNode)
 {
-    m_Visit(pFromNode, pToNode, m_nTime);
+    m_DFVisit(pFromNode, pToNode, m_nTime);
 
     NodeList::iterator neighboursIterator = pToNode->m_Neighbours.begin();
 
@@ -112,7 +132,7 @@ void Graph::BFIterate(Node *pNode)
     NodeQueue nodeQueue;
     m_ResetNodes();
 
-    m_Visit(NULL, pNode);
+    m_BFVisit(NULL, pNode);
     nodeQueue.push(pNode);
 
     while(!nodeQueue.empty())
@@ -123,7 +143,7 @@ void Graph::BFIterate(Node *pNode)
 
         for(; (nodeListIterator != node->m_Neighbours.end()) && (!(*nodeListIterator)->m_bVisited); ++nodeListIterator)
         {
-            m_Visit(node, *nodeListIterator);
+            m_BFVisit(node, *nodeListIterator);
             nodeQueue.push(*nodeListIterator);
         }
     }
