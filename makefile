@@ -18,7 +18,7 @@ $(LIBDIR)/$(TARGET).so: $(OBJECTS)
 	g++ -shared -Wl,-soname,$(TARGET).so -o $(LIBDIR)/$(TARGET).so $(OBJECTS)
 
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(INCDIR)/%.h
-	g++ -g -c -Wall -I$(INCDIR) $< -o $@
+	g++ -g -fPIC -c -Wall -I$(INCDIR) $< -o $@
 
 .PHONEY: clean
 clean:
