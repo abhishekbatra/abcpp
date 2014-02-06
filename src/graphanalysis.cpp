@@ -12,7 +12,10 @@ GraphAnalyzer::GraphAnalyzer(Graph *pGraph)
 
 void GraphAnalyzer::DFVisit(Node *pFromNode, Node *pToNode)
 {
-    m_tIsCyclic = (Ternary)t_IsBackEdge(pFromNode, pToNode);
+    if(pFromNode != NULL)
+    {
+        m_tIsCyclic = (Ternary)t_IsBackEdge(pFromNode, pToNode);
+    }
 }
 
 void GraphAnalyzer::BFVisit(Node *pFromNode, Node *pToNode)
@@ -37,6 +40,7 @@ bool GraphAnalyzer::IsGraphCyclic(Node *pNode)
 
 bool GraphAnalyzer::t_IsBackEdge(Node *pFromNode, Node *pToNode)
 {
+
     if(
            (pFromNode->m_EntryTime > pToNode->m_EntryTime) &&
            (pToNode->m_ExitTime == -1)

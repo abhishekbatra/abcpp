@@ -40,14 +40,26 @@ void Graph::m_DFVisit(Node *pFromNode, Node *pToNode)
     pToNode->m_bVisited = true;
 }
 
-void Graph::m_DFVisit(Node *pFromNode, Node *pToNode, int nTime)
+bool Graph::m_DFVisit(Node *pFromNode, Node *pToNode, int nTime)
 {
-    pToNode->m_EntryTime = nTime;
+    if(pToNode->m_EntryTime == -1)
+    {
+        pToNode->m_EntryTime = nTime;
+    }
+
     if(m_pGraphClient != NULL)
     {
         m_pGraphClient->DFVisit(pFromNode, pToNode);
     }
-    pToNode->m_bVisited = true;
+
+    if(pToNode->m_bVisited == true)
+    {
+        return false;
+    }
+    else
+    {
+        return (pToNode->m_bVisited = true);
+    }
 }
 
 void Graph::m_BFVisit(Node *pFromNode, Node *pToNode)
@@ -111,15 +123,15 @@ void Graph::DFIterate(Node *pNode)
 
 void Graph::m_PerformDFIterate(Node *pFromNode, Node *pToNode)
 {
-    m_DFVisit(pFromNode, pToNode, m_nTime);
+    bool bRet = m_DFVisit(pFromNode, pToNode, m_nTime);
 
-    NodeList::iterator neighboursIterator = pToNode->m_Neighbours.begin();
-
-    for(; neighboursIterator != pToNode->m_Neighbours.end(); ++neighboursIterator)
+    if(bRet == true)
     {
-        ++m_nTime;
-        if(!(*neighboursIterator)->m_bVisited)
+        NodeList::iterator neighboursIterator = pToNode->m_Neighbours.begin();
+
+        for(; neighboursIterator != pToNode->m_Neighbours.end(); ++neighboursIterator)
         {
+            ++m_nTime;
             m_PerformDFIterate(pToNode, *neighboursIterator);
         }
     }

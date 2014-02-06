@@ -24,3 +24,7 @@ $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(INCDIR)/%.h
 clean:
 	@$(rm) $(LIBDIR)/$(TARGET).so
 	@$(rm) $(OBJECTS)
+
+install:
+	cp $(LIBDIR)/*.so /usr/lib
+	cp $(INCDIR)/*.h /usr/include

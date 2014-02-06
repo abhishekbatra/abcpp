@@ -47,7 +47,7 @@ class Graph
     int m_nTime;
 
     void m_DFVisit(Node *pFromNode, Node *pToNode);
-    void m_DFVisit(Node *pFromNode, Node *pToNode, int nTime);
+    bool m_DFVisit(Node *pFromNode, Node *pToNode, int nTime);
 
     void m_BFVisit(Node *pFromNode, Node *pToNode);
     void m_BFVisit(Node *pFromNode, Node *pToNode, int nTime);
