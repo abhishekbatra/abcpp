@@ -14,11 +14,14 @@ class GraphAnalyzer : public IGraphClient
 public:
     GraphAnalyzer(Graph *pGraph);
 
-    virtual void DFVisit(Node *pFromNode, Node *pToNode);
+    virtual bool DFVisit(Node *pFromNode, Node *pToNode);
     virtual void BFVisit(Node *pFromNode, Node *pToNode);
 
     bool IsGraphCyclic(void);
     bool IsGraphCyclic(Node *pNode);
+
+    NodePath GetShortestPath(int nNode1, int nNode2);
+    NodePath GetShortestPath(Node *pNode1, Node *pNode2);
 
 protected:
     bool t_IsBackEdge(Node *pFromNode, Node *pToNode);

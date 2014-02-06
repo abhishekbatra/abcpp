@@ -49,7 +49,11 @@ bool Graph::m_DFVisit(Node *pFromNode, Node *pToNode, int nTime)
 
     if(m_pGraphClient != NULL)
     {
-        m_pGraphClient->DFVisit(pFromNode, pToNode);
+        if(m_pGraphClient->DFVisit(pFromNode, pToNode) == false)
+        {
+            pToNode->m_bVisited = true;
+            return false;
+        }
     }
 
     if(pToNode->m_bVisited == true)

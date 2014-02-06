@@ -17,6 +17,7 @@ enum Ternary
 class Node;
 
 typedef std::list<Node *> NodeList;
+typedef NodeList NodePath;
 typedef std::vector<Node *> NodeVector;
 typedef std::pair<int, int> Edge;
 
@@ -36,7 +37,7 @@ class IGraphClient
 {
 public:
     /* To be called before the node is set to visited */
-    virtual void DFVisit(Node *pFromNode, Node *pToNode) = 0;
+    virtual bool DFVisit(Node *pFromNode, Node *pToNode) = 0;
     virtual void BFVisit(Node *pFromNode, Node *pToNode) = 0;
 };
 

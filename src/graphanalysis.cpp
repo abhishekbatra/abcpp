@@ -10,12 +10,14 @@ GraphAnalyzer::GraphAnalyzer(Graph *pGraph)
     m_pGraph->SetClient(this);
 }
 
-void GraphAnalyzer::DFVisit(Node *pFromNode, Node *pToNode)
+bool GraphAnalyzer::DFVisit(Node *pFromNode, Node *pToNode)
 {
     if(pFromNode != NULL)
     {
         m_tIsCyclic = (Ternary)t_IsBackEdge(pFromNode, pToNode);
     }
+
+    return true;
 }
 
 void GraphAnalyzer::BFVisit(Node *pFromNode, Node *pToNode)
@@ -36,6 +38,16 @@ bool GraphAnalyzer::IsGraphCyclic(Node *pNode)
     }
 
     return (bool)m_tIsCyclic;
+}
+
+NodePath GraphAnalyzer::GetShortestPath(int nNode1, int nNode2)
+{
+
+}
+
+NodePath GraphAnalyzer::GetShortestPath(Node *pNode1, Node *pNode2)
+{
+
 }
 
 bool GraphAnalyzer::t_IsBackEdge(Node *pFromNode, Node *pToNode)
