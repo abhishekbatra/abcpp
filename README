@@ -1,0 +1,6 @@
+Installation instructions:
+
+1. make all
+2. sudo make install
+
+For hacking add /usr/lib to $LD_LIBRARY_PATH
