@@ -31,6 +31,11 @@ bool GraphAnalyzer::IsGraphCyclic(void)
 
 bool GraphAnalyzer::IsGraphCyclic(Node *pNode)
 {
+    if(!m_pGraph->IsDirected())
+    {
+        return false;
+    }
+
     if(m_tIsCyclic == Invalid)
     {
         m_tIsCyclic = False;
@@ -42,12 +47,12 @@ bool GraphAnalyzer::IsGraphCyclic(Node *pNode)
 
 NodePath GraphAnalyzer::GetShortestPath(int nNode1, int nNode2)
 {
-
+    return *(new NodePath);
 }
 
 NodePath GraphAnalyzer::GetShortestPath(Node *pNode1, Node *pNode2)
 {
-
+    return *(new NodePath);
 }
 
 bool GraphAnalyzer::t_IsBackEdge(Node *pFromNode, Node *pToNode)

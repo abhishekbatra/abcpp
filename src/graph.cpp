@@ -25,10 +25,11 @@ void Node::Reset(void)
     m_ExitTime = -1;
 }
 
-Graph::Graph(void)
+Graph::Graph(bool bDirected)
 {
     m_pGraphClient = NULL;
     m_nTime = 0;
+    m_bDirectedFlag = bDirected;
 }
 
 void Graph::m_DFVisit(Node *pFromNode, Node *pToNode)
@@ -100,6 +101,11 @@ void Graph::m_ResetNodes(void)
 void Graph::SetClient(IGraphClient *pGraphClient)
 {
     m_pGraphClient = pGraphClient;
+}
+
+bool Graph::IsDirected()
+{
+    return m_bDirectedFlag;
 }
 
 void Graph::AddNode(Node *pNode)

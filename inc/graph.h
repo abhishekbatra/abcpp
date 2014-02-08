@@ -46,6 +46,7 @@ class Graph
     IGraphClient *m_pGraphClient;
     NodeVector m_Nodes;
     int m_nTime;
+    bool m_bDirectedFlag;
 
     void m_DFVisit(Node *pFromNode, Node *pToNode);
     bool m_DFVisit(Node *pFromNode, Node *pToNode, int nTime);
@@ -57,12 +58,16 @@ class Graph
     void m_PerformDFIterate(Node *pFromNode, Node *pToNode);
 
 public:
-    Graph(void);
+    Graph(bool bDirected = true);
 
     void SetClient(IGraphClient *pGraphClient);
+
+    bool IsDirected();
+
     void AddNode(Node *pNode);
     Node *GetNode(int position);
     NodeVector GetNodes(void);
+
     void DFIterate(Node *pNode);
     void BFIterate(Node *pNode);
 };
